@@ -524,7 +524,7 @@ export default App;
             // Route to different APIs based on model
             if (model.startsWith('gemini')) {
                 // Gemini API
-                const GEMINI_API_KEY = 'REDACTED';
+                const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
                 const geminiMessages = [
                     { role: 'user', parts: [{ text: activeSystemPrompt }] },
                     { role: 'model', parts: [{ text: 'I understand. I am an autonomous coding agent and will follow these rules strictly.' }] },
@@ -557,7 +557,7 @@ export default App;
                 const geminiData = await geminiResponse.json();
                 content = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I could not generate a response.';
             } else if (model.includes('/') || model.startsWith('openai/') || model.startsWith('anthropic/')) {
-                const OPENROUTER_API_KEY = 'REDACTED';
+                const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
                 const orMessages = [
                     { role: 'system', content: activeSystemPrompt },
                     ...chatHistory.filter(m => m.role !== 'system')
